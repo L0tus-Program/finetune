@@ -17,6 +17,7 @@ Versão 1.0 para pequenos testes.
 Caso deseje trabalhar no código deste projeto, serão necessárias as seguintes bibliotecas instaladas:
 
 Flask
+
 Openai
 
 
