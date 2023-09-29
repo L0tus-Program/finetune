@@ -1,25 +1,63 @@
-from flask import Flask, request, jsonify
-from main import fine
+from flask import Flask, request, jsonify, abort
+from json_to_openai import fine,json_to_l
+
+# Chave apenas temporaria
+API_KEY = 'Sua-chave'
+
+# Outras configurações do aplicativo
+DEBUG = True
+ENV = 'development'
+HOST = 'localhost'
+PORT = 5000
+
+# Criando aplicação
 app = Flask(__name__)
 
+# Autenticação
+def authenticate():
+    api_key = request.headers.get('X-API-KEY')
+    if api_key != API_KEY:
+        return abort(401)
+
+    return True
+
+# função de autenticação 
 @app.route('/', methods=['POST'])
 def receber_json():
+    if not authenticate():
+        return abort(401)
+
     try:
         dados_json = request.get_json()
-        print("Recebendo JSON \nInvocando funcao fine")
-        fine(dados_json) #invocando integração OPENAI
+        print("Recebendo JSON \nInvocando função fine")
+        fine(dados_json)  # Invocando integração OPENAI
         return jsonify({"mensagem": "JSON recebido com sucesso", "dados": dados_json}), 200
-        
-        
+
     except Exception as e:
         return jsonify({"erro": "Erro ao processar JSON", "mensagem": str(e)}), 400
     
-@app.route('/', methods=['GET']) 
+
+@app.route('/converter', methods=['POST'])
+
+def convertendo_json():
+    if not authenticate():
+        return abort(401)
+
+    try:
+        dados_json = request.get_json()
+        print("Recebendo JSON \nInvocando função fine")
+        json_to_l(dados_json)  # Invocando integração OPENAI
+        return jsonify({"mensagem": "JSON recebido com sucesso", "dados": dados_json}), 200
+
+    except Exception as e:
+        return jsonify({"erro": "Erro ao processar JSON", "mensagem": str(e)}), 400
+
+@app.route('/', methods=['GET'])
 def enviar_status():
     try:
-        return jsonify({"mensagem": "API online.","GPT": "Status fine -"}),200
+        return jsonify({"mensagem": "API online.", "GPT": "Status fine - OK"}), 200
     except Exception as e:
-        return jsonify({"erro": "Erro ao acessar dados"}),400
+        return jsonify({"erro": "Erro ao acessar dados"}), 400
 
 if __name__ == '__main__':
     app.run(debug=True)
