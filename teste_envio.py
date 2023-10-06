@@ -9,13 +9,14 @@ with open('dados.json') as json_file:
 url = 'http://localhost:5000/'  # Atualize a URL conforme necessário
 
 # Chave de API (se ainda for necessária)
-api_key = 'Sua-chave'
+api_key = 'Messem@2023'
 
 # Cabeçalho da solicitação com a chave de API (se ainda for necessária)
 headers = {'X-API-KEY': api_key} if api_key else {}
 
 # Envia a solicitação POST com os dados JSON e o cabeçalho (se necessário)
 try:
+    #jsonl = json.dumps(dados_json)
     response = requests.post(url, json=dados_json, headers=headers)
 
     # Verifica a resposta da API

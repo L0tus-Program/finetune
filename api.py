@@ -1,8 +1,14 @@
 from flask import Flask, request, jsonify, abort
 from json_to_openai import fine,json_to_l
 
+
+# Converter JSON em texto
+# Dinamico para rodar com todas as linhas disponiveis
+
+
+
 # Chave apenas temporaria
-API_KEY = 'Sua-chave'
+API_KEY = 'Messem@2023'
 
 # Outras configurações do aplicativo
 DEBUG = True
@@ -18,7 +24,7 @@ def authenticate():
     api_key = request.headers.get('X-API-KEY')
     if api_key != API_KEY:
         return abort(401)
-
+    print("Autenticado")
     return True
 
 # função de autenticação 
