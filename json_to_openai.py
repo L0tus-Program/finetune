@@ -5,7 +5,7 @@ import save
 # Check data formatting 
 # https://cookbook.openai.com/examples/chat_finetuning_data_prep
 
-chave_open = "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"
+chave_open = "sua-chave"
 
 def json_to_l(objeto):
     print("Entrando json_to_l")
