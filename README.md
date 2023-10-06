@@ -1,3 +1,4 @@
+Bugs para corrigir: Converter o objet parametro em string e depois novamente em JSONL antes do envio para o SDK pra Openai.
 
 # API Finetuning ChatGPT
 
